@@ -35,7 +35,7 @@ def process_images(input_directory, output_directory='output/', crop_coords=(10,
             eroded_image = cv2.erode(binary_image, kernel, iterations=1)
             if output == True:
                 output_path = os.path.join(output_directory, filename)
-                cv2.imwrite(output_path, eroded_image)
+                cv2.imwrite(output_path, cropped_image)
             else:
                 total_pixels = eroded_image.size
 

@@ -35,16 +35,16 @@ pip install -r requirements.txt
 
 2. **選擇資料夾**：
    在應用界面中，輸入要處理的輸入資料夾路徑和輸出資料夾路徑。
-![alt text](<Screenshot 2024-10-01 at 8.50.01 pm.png>)
+![alt text](<images/Screenshot 2024-10-01 at 8.50.01 pm.png>)
 3. **開始處理**：
    點擊「Start Processing」按鈕以開始處理圖像。處理完成後，您可以查看經過處理的圖像。
 
 4. **刪除圖像**：
    在「Delete From Output Folder」部分中，您可以查看輸出資料夾中的圖像並選擇要刪除的圖像。
-![alt text](image.png)
+![alt text](images/image.png)
 5. **清空輸出資料夾**：
    如果需要，可以點擊「Clear Output Directory」按鈕以刪除整個輸出資料夾。
-![   ](<Screenshot 2024-10-01 at 8.53.00 pm.png>)
+![   ](<images/Screenshot 2024-10-01 at 8.53.00 pm.png>)
 ## 函數詳解
 
 ### process_images()
@@ -57,6 +57,13 @@ pip install -r requirements.txt
 - `kernel_size`: 用於形態學操作的核大小。
 - `output`: 是否將處理後的圖像保存到輸出資料夾。
 
+處理前
+
+![alt text](<images/LINE_ALBUM_0903-七賢路河東路口東北側挖除_240904_2 copy.jpg>)
+
+處理後
+
+![alt text](images/LINE_ALBUM_0903-七賢路河東路口東北側挖除_240904_2.jpg)
 ### copy_processed_images_from_folders()
 
 該函數從 `input_directory` 中的每個子資料夾處理圖像，並將結果複製到 `output_directory` 中。
