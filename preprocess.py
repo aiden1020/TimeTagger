@@ -11,7 +11,7 @@ def process_images(input_directory, output_directory='output/', crop_coords=(10,
         if filename.endswith('.jpg'):
             image_path = os.path.join(input_directory, filename)
             image = cv2.imread(image_path)
-
+            print(input_directory)
             cropped_image = image[crop_coords[0]:crop_coords[1], crop_coords[2]:crop_coords[3]]
 
             gray_image = cv2.cvtColor(cropped_image, cv2.COLOR_BGR2GRAY)
@@ -29,13 +29,13 @@ def process_images(input_directory, output_directory='output/', crop_coords=(10,
             result_gray_image = cv2.cvtColor(masked_result, cv2.COLOR_BGR2GRAY)
 
             _, binary_image = cv2.threshold(
-                result_gray_image, 245, 255, cv2.THRESH_BINARY_INV)
+                result_gray_image, 230, 255, cv2.THRESH_BINARY_INV)
 
             kernel = np.ones(kernel_size, np.uint8)
             eroded_image = cv2.erode(binary_image, kernel, iterations=1)
             if output == True:
                 output_path = os.path.join(output_directory, filename)
-                cv2.imwrite(output_path, cropped_image)
+                cv2.imwrite(output_path, eroded_image)
             else:
                 total_pixels = eroded_image.size
 
@@ -50,6 +50,6 @@ def process_images(input_directory, output_directory='output/', crop_coords=(10,
 
 
 if __name__ == "__main__":
-    input_directory = 'dataset/0903-七賢路河東路口東北側挖除-3755'
+    input_directory = 'dataset/0914-新興區玉竹一街6號前 道路凹陷整平-1525'
     output_directory = 'output/'
     process_images(input_directory, output_directory, output=True)
