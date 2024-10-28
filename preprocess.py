@@ -3,7 +3,7 @@ import os
 import numpy as np
 
 
-def process_images(input_directory, output_directory='output/', crop_coords=(10, 45, 1170, 1273), kernel_size=(3, 3), output=False):
+def process_images(input_directory, output_directory='output/', crop_coords=(10, 220, 780, 1273), kernel_size=(3, 3), output=False):
     if not os.path.exists(output_directory) and output == True:
         os.makedirs(output_directory)
     filename_with_words = []
@@ -12,7 +12,10 @@ def process_images(input_directory, output_directory='output/', crop_coords=(10,
             image_path = os.path.join(input_directory, filename)
             image = cv2.imread(image_path)
             print(input_directory)
-            cropped_image = image[crop_coords[0]:crop_coords[1], crop_coords[2]:crop_coords[3]]
+            image = cv2.resize(image, (1280, 960),
+                               interpolation=cv2.INTER_AREA)
+            cropped_image = image[crop_coords[0]
+                :crop_coords[1], crop_coords[2]:crop_coords[3]]
 
             gray_image = cv2.cvtColor(cropped_image, cv2.COLOR_BGR2GRAY)
 
@@ -33,6 +36,7 @@ def process_images(input_directory, output_directory='output/', crop_coords=(10,
 
             kernel = np.ones(kernel_size, np.uint8)
             eroded_image = cv2.erode(binary_image, kernel, iterations=1)
+
             if output == True:
                 output_path = os.path.join(output_directory, filename)
                 cv2.imwrite(output_path, eroded_image)
@@ -42,7 +46,8 @@ def process_images(input_directory, output_directory='output/', crop_coords=(10,
                 non_black_pixels = cv2.countNonZero(eroded_image)
 
                 black_pixels = total_pixels - non_black_pixels
-                if black_pixels > 800:  # it means image contains time
+                print(black_pixels)
+                if black_pixels > 10000:  # it means image contains time
                     filename_with_words.append(filename)
 
     print("preprocess done...")
@@ -50,6 +55,6 @@ def process_images(input_directory, output_directory='output/', crop_coords=(10,
 
 
 if __name__ == "__main__":
-    input_directory = 'dataset/0914-新興區玉竹一街6號前 道路凹陷整平-1525'
+    input_directory = 'dataset/0916-中華五路930巷道路掏空鋪鐵板-0353'
     output_directory = 'output/'
     process_images(input_directory, output_directory, output=True)
